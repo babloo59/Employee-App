@@ -8,6 +8,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/addemployee" element={<CreateEmployeePage />} />
+        <Route path="/edit/:id" element={<EditEmployeePage />} />
       </Routes>
     </div>
   );
