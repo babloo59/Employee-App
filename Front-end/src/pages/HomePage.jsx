@@ -10,7 +10,7 @@ const HomePage = () => {
     try {
       
       const getPeople = await fetch(
-        `http://localhost:4000/api/v1/getallUsers`,
+        `https://employee-app-ie4s.onrender.com/api/v1/getallUsers`,
         {
           method: "GET",
           headers: {
@@ -29,7 +29,7 @@ const HomePage = () => {
   const loadingToast = toast.loading("Deleting...");
 
   try {
-    const res = await fetch(`http://localhost:4000/api/v1/deleteUser/${id}`, {
+    const res = await fetch(`https://employee-app-ie4s.onrender.com/api/v1/deleteUser/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
