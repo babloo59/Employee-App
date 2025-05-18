@@ -7,7 +7,7 @@ const HomePage = () => {
   const getAllData = async () => {
     try {
       const getPeople = await fetch(
-        `https://employee-app-ie4s.onrender.com/getallUsers`,
+        `https://employee-app-ie4s.onrender.com/api/v1/getallUsers`,
         {
           method: "GET",
           headers: {
