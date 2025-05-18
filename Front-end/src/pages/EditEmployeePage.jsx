@@ -18,7 +18,7 @@ const EditEmployee = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/v1/getUser/${id}`, {method:"GET", headers:{"Content-Type":"application/json"}});
+        const res = await fetch(`https://employee-app-ie4s.onrender.com/api/v1/getUser/${id}`, {method:"GET", headers:{"Content-Type":"application/json"}});
         const data = await res.json();
 
         setFormData({
@@ -50,7 +50,7 @@ const EditEmployee = () => {
     const loadingToast = toast.loading("Updating...");
 
     try {
-      const res = await fetch(`http://localhost:4000/api/v1/edit/${id}`, {
+      const res = await fetch(`https://employee-app-ie4s.onrender.com/api/v1/edit/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
