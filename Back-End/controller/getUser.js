@@ -1,34 +1,20 @@
 const User = require("../models/User");
 
-exports.createUser = async (req, res) => {
+// Get all users
+exports.getUser = async (req, res) => {
   try {
-    console.log("req body", req.body);
-    const { name, email, title, department, role } = req.body;
-    if (!name || !email || !title || !role || !department) {
-      console.log("not all fields...");
-      return res.status(400).json({
-        status: 400,
-        message: "Please fill all fields",
-      });
-    }
-    const user = await User.create({
-      name,
-      email,
-      title,
-      department,
-      role,
-      image: `https://api.dicebear.com/5.x/initials/svg?seed=${name}`,
-    });
+    const users = await User.find(); // Sequelize: findAll()
+
     return res.status(200).json({
-      status: 201,
-      message: "User created successfully",
-      data: user,
+      status: 200,
+      message: "Users fetched successfully",
+      data: users,
     });
   } catch (error) {
-    console.log("error", error);
+    console.error("Error:", error);
     return res.status(500).json({
       status: 500,
-      message: error.message,
+      message: process.env.NODE_ENV === "production" ? "Internal Server Error" : error.message,
     });
   }
 };
