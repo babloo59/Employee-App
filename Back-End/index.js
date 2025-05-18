@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use(cors({
-  origin: "*",
+  origin: "https://employee-app-frontend-391x.onrender.com",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
