@@ -7,7 +7,7 @@ const HomePage = () => {
   const getAllData = async () => {
     try {
       const getPeople = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/getallUsers`,
+        `https://employee-app-ie4s.onrender.com/getallUsers`,
         {
           method: "GET",
           headers: {
@@ -18,18 +18,14 @@ const HomePage = () => {
 
       const res = await getPeople.json();
       setEmpData(res);
-    } catch (error) {
-      console.log(error);
+    }  catch (error) {
+      console.log(error.message);
     }
   };
-
   useEffect(() => {
     getAllData();
   },[]);
   console.log(empData);
-
-  // console.log(empData);
-
   return (
     <div className="bg-slate-800 h-screen w-full">
       <section className="container px-4 mx-auto py-4">
