@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import CreateEmployeePage from "./pages/CreateEmployeePage";
+import EditEmployeePage from "./pages/EditEmployeePage.jsx";
 
 function App() {
   return (
