@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
 
 const HomePage = () => {
   const [empData, setEmpData] = useState();
 
   const getAllData = async () => {
     try {
+      
       const getPeople = await fetch(
-        `https://employee-app-ie4s.onrender.com/api/v1/getallUsers`,
+        `http://localhost:4000/api/v1/getallUsers`,
         {
           method: "GET",
           headers: {
@@ -22,6 +25,28 @@ const HomePage = () => {
       console.log(error.message);
     }
   };
+  const handleDelete = async (id) => {
+  const loadingToast = toast.loading("Deleting...");
+
+  try {
+    const res = await fetch(`http://localhost:4000/api/v1/deleteUser/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.ok) {
+      toast.success("Employee deleted successfully", { id: loadingToast });
+      getAllData(); // Refresh list
+    } else {
+      toast.error("Failed to delete employee", { id: loadingToast });
+    }
+  } catch (error) {
+    toast.error(`Error: ${error.message}`, { id: loadingToast });
+  }
+};
+
   useEffect(() => {
     getAllData();
   },[]);
@@ -81,6 +106,14 @@ const HomePage = () => {
                       <tr key={person.name}>
                         <td className="py-4 px-4 whitespace-nowrap">
                           <div className="flex items-center">
+                            <Link
+                            to={`/edit/${person._id}`}
+                            state={{ employee: person }} // 🆕 pass data to form page
+                            className="text-blue-500 hover:text-blue-700"
+                            title="Edit"
+                          >
+                            ✏️
+                          </Link>
                             <div className="flex-shrink-0 h-10 w-10">
                               <img
                                 className="h-10 w-10 rounded-full object-cover"
@@ -110,6 +143,17 @@ const HomePage = () => {
                         <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                           {person.role}
                         </td>
+
+                        <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <button
+                            onClick={() => handleDelete(person._id)}
+                            className="text-red-600 hover:text-red-800"
+                            title="Delete"
+                          >
+                            🗑️
+                          </button>
+                        </td>
+
                       </tr>
                     ))}
                   </tbody>
